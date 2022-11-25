@@ -29,6 +29,8 @@ class AuthController extends Controller
             ]
         ], 201);
     }
+
+
     public function login(LoginRequest $request)
     {
         $login_info = [
@@ -55,5 +57,15 @@ class AuthController extends Controller
                 'message' => 'Credential does not match!!'
             ], 401);
         }
+    }
+
+    public function me()
+    {
+        $user = auth()->user();
+        return response()->json([
+            'error' => false,
+            'message' => 'LoggedIn user information!',
+            'data' => $user
+        ]);
     }
 }
