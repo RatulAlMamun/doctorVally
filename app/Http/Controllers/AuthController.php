@@ -79,6 +79,7 @@ class AuthController extends Controller
     public function me()
     {
         $user = auth()->user();
+        $role = $user->getRoleNames();
         return response()->json([
             'error' => false,
             'message' => 'LoggedIn user information!',
