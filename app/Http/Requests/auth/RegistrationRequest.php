@@ -32,7 +32,7 @@ class RegistrationRequest extends FormRequest
                 'regex:/^(?:\+88)01[13-9]\d{8}$/'
             ],
             'email' => 'email',
-            'bmdc_no' => 'required_if:role,doctor|string',
+            'bmdc_no' => 'required_if:role,doctor|string|unique:doctors,bmdc_no',
             'password' => 'required|min:8|confirmed',
             'password_confirmation' => 'required|min:8',
             'role' => 'required|string|in:doctor,chamber',

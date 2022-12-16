@@ -4,22 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\auth\LoginRequest;
 use App\Http\Requests\auth\RegistrationRequest;
+use App\Models\Chamber;
+use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
     public function register(RegistrationRequest $request)
     {
-        dd("hoise");
         $data = [
-            'name' => $request->input('name'),
             'phone' => $request->input('phone'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password'))
         ];
         $user = User::create($data);
         $token = $user->createToken('userToken')->accessToken;
+        if($request->input('role') === 'doctor')
+        {
+            $doctor = Doctor::create([
+                'name' => $request->input('name'),
+                'bmdc_no' => $request->input('bmdc_no')
+            ]);
+        }
+        else
+        {
+            $chamber = Chamber::create([
+                'name' => $request->input('name'),
+                'location' => $request->input('location')
+            ]);
+        }
+        // user's role assign in role table
+        $user->assignRole($request->input('role'));
         return response()->json([
             'error' => false,
             'message' => 'Registration Completed Successfully!!',
