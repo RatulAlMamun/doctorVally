@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\auth\DoctorRegisterRequest;
 use App\Http\Requests\auth\LoginRequest;
+use App\Http\Requests\auth\RegistrationRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register(DoctorRegisterRequest $request)
+    public function register(RegistrationRequest $request)
     {
+        dd("hoise");
         $data = [
             'name' => $request->input('name'),
             'phone' => $request->input('phone'),

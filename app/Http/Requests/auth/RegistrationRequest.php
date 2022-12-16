@@ -4,7 +4,7 @@ namespace App\Http\Requests\auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DoctorRegisterRequest extends FormRequest
+class RegistrationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,19 @@ class DoctorRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'phone' => 'required|string|min:11|max:11|unique:users,phone',
+            'name' => 'required|string|min:3',
+            'phone' => [
+                'required',
+                'string',
+                'unique:users,phone',
+                'regex:/^(?:\+88)01[13-9]\d{8}$/'
+            ],
             'email' => 'email',
+            'bmdc_no' => 'required_if:role,doctor|string',
             'password' => 'required|min:8|confirmed',
-            'password_confirmation' => 'required|min:8'
+            'password_confirmation' => 'required|min:8',
+            'role' => 'required|string|in:doctor,chamber',
+            'location' => 'required_if:role,chamber|string'
         ];
     }
 }
