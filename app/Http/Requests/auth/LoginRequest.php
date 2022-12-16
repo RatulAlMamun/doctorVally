@@ -24,7 +24,11 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => 'required|string|min:11|max:11',
+            'phone' => [
+                'required',
+                'string',
+                'regex:/^(?:\+88)01[13-9]\d{8}$/'
+            ],
             'password' => 'required|min:8'
         ];
     }
