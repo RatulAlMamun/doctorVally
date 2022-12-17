@@ -25,14 +25,16 @@ class AuthController extends Controller
         {
             $doctor = Doctor::create([
                 'name' => $request->input('name'),
-                'bmdc_no' => $request->input('bmdc_no')
+                'bmdc_no' => $request->input('bmdc_no'),
+                'user_id' => $user->id
             ]);
         }
         else
         {
             $chamber = Chamber::create([
                 'name' => $request->input('name'),
-                'location' => $request->input('location')
+                'location' => $request->input('location'),
+                'user_id' => $user->id
             ]);
         }
         // user's role assign in role table
@@ -83,7 +85,10 @@ class AuthController extends Controller
         return response()->json([
             'error' => false,
             'message' => 'LoggedIn user information!',
-            'data' => $user
+            'data' => [
+                'user' => $user,
+                'userDetails' => $user->userDetails
+            ]
         ]);
     }
 }

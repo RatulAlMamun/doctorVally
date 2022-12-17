@@ -45,4 +45,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function userDetails()
+    {
+        if($this->hasRole('doctor'))
+        {
+            return $this->hasOne(Doctor::class);
+        }
+        else if($this->hasRole('chamber'))
+        {
+            return $this->hasOne(Chamber::class);
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

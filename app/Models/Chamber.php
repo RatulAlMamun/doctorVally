@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Chamber extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'location'];
+    protected $fillable = ['name', 'location', 'user_id'];
 }

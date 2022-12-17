@@ -17,6 +17,7 @@ class CreateChambersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('location');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

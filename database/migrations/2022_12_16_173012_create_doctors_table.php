@@ -17,6 +17,7 @@ class CreateDoctorsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('bmdc_no')->unique();
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
