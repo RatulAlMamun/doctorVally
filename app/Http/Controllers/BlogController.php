@@ -37,34 +37,44 @@ class BlogController extends Controller
         $blog = Blog::find($id);
         if($blog)
         {
-            if($request->title)
+            if(auth()->id() == $blog->user_id)
             {
-                $data['title'] = $request->input('title');
-            }
-            if($request->description)
-            {
-                $data['description'] = $request->input('description');
-            }
-            if($request->hasFile('thumbnail'))
-            {
-                $oldImage = $blog->thumbnail;
-                if($oldImage)
+                if($request->title)
                 {
-                    unlink('uploads/blogs/'.$oldImage);
+                    $data['title'] = $request->input('title');
                 }
-                $thumbnail = $request->file('thumbnail');
-                $newThumbnailName = time().'.'.$thumbnail->getClientOriginalExtension();
-                $path = public_path('/uploads/blogs');
-                $thumbnail->move($path, $newThumbnailName);
-                $data['thumbnail'] = $newThumbnailName;
-            }
+                if($request->description)
+                {
+                    $data['description'] = $request->input('description');
+                }
+                if($request->hasFile('thumbnail'))
+                {
+                    $oldImage = $blog->thumbnail;
+                    if($oldImage)
+                    {
+                        unlink('uploads/blogs/'.$oldImage);
+                    }
+                    $thumbnail = $request->file('thumbnail');
+                    $newThumbnailName = time().'.'.$thumbnail->getClientOriginalExtension();
+                    $path = public_path('/uploads/blogs');
+                    $thumbnail->move($path, $newThumbnailName);
+                    $data['thumbnail'] = $newThumbnailName;
+                }
 
-            $blog->update($data);
-            return response()->json([
-                'error' => false,
-                'message' => 'Blog updated successfully!!',
-                'data' => $blog
-            ]);
+                $blog->update($data);
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Blog updated successfully!!',
+                    'data' => $blog
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Unauthorize access!!'
+                ], 401);
+            }
         }
         else
         {
