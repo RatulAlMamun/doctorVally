@@ -84,4 +84,24 @@ class BlogController extends Controller
             ], 404);
         }
     }
+
+    public function show($id)
+    {
+        $blog = Blog::find($id);
+        if($blog)
+        {
+            return response()->json([
+                'error' => false,
+                'message' => 'Single blog show',
+                'data' => $blog
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'error' => true,
+                'message' => 'Blog not found'
+            ], 404);
+        }
+    }
 }

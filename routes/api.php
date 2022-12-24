@@ -25,7 +25,9 @@ Route::post('/login',[AuthController::class,'login']);
 
 Route::middleware('auth:api')->group(function(){
     Route::get('/me', [AuthController::class,'me']);
-    Route::post('/blog/store', [BlogController::class, 'store']);
-    Route::put('/blog/update/{id}', [BlogController::class, 'update']);
+    Route::post('/blogs/store', [BlogController::class, 'store']);
+    Route::put('/blogs/update/{id}', [BlogController::class, 'update']);
 });
+Route::get('/blogs/{id}', [BlogController::class, 'show']);
+
 
