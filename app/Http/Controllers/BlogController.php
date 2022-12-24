@@ -8,7 +8,7 @@ use App\Models\User;
 
 class BlogController extends Controller
 {
-    public function create(BlogRequest $request)
+    public function store(BlogRequest $request)
     {
         $data = [
             'title' => $request->input('title'),

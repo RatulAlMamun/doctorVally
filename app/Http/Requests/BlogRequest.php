@@ -25,7 +25,7 @@ class BlogRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'thumbnail' => 'image|nullable|mimes:png,jpg',
+            'thumbnail' => 'required|image|mimes:png,jpg,jpeg',
             'description' => 'required|string'
         ];
     }
