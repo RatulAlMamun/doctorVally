@@ -49,10 +49,12 @@ class BlogController extends Controller
                 }
                 if($request->hasFile('thumbnail'))
                 {
-                    $oldImage = $blog->thumbnail;
+                    $oldImageUrl = $blog->thumbnail;
+                    $oldImageWithSlash = parse_url($oldImageUrl)['path'];
+                    $oldImage = substr($oldImageWithSlash, 1);
                     if($oldImage)
                     {
-                        unlink('uploads/blogs/'.$oldImage);
+                        unlink($oldImage);
                     }
                     $thumbnail = $request->file('thumbnail');
                     $newThumbnailName = time().'.'.$thumbnail->getClientOriginalExtension();
