@@ -6,6 +6,7 @@ use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
 use App\Models\Blog;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -14,7 +15,8 @@ class BlogController extends Controller
         $data = [
             'title' => $request->input('title'),
             'description' => $request->input('description'),
-            'user_id' => auth()->id()
+            'user_id' => auth()->id(),
+            'publish' => $request->input('publish')
         ];
         if($request->hasFile('thumbnail'))
         {
@@ -96,6 +98,33 @@ class BlogController extends Controller
                 'error' => false,
                 'message' => 'Single blog show',
                 'data' => $blog
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'error' => true,
+                'message' => 'Blog not found'
+            ], 404);
+        }
+    }
+
+    public function doctor_blogs()
+    {
+        $user = auth()->user();
+        dd($user);
+
+    }
+
+    public function index()
+    {
+        $allBlogs = Blog::get();
+        if($allBlogs)
+        {
+            return response()->json([
+                'error' => false,
+                'message' => 'All blog show',
+                'data' => $allBlogs
             ]);
         }
         else

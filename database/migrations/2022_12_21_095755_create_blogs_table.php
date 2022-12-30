@@ -19,6 +19,7 @@ class CreateBlogsTable extends Migration
             $table->string('thumbnail');
             $table->text('description');
             $table->foreignId('user_id');
+            $table->boolean('publish')->default(false);
             $table->timestamps();
         });
     }
