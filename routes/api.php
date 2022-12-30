@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BlogController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Dashboard\BlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,11 +24,14 @@ Route::post('/login',[AuthController::class,'login']);
 
 Route::middleware('auth:api')->group(function(){
     Route::get('/me', [AuthController::class,'me']);
-    Route::post('/blogs/store', [BlogController::class, 'store']);
-    Route::put('/blogs/update/{id}', [BlogController::class, 'update']);
-    Route::get('/doctor-blogs', [BlogController::class, 'doctor_blogs']);
-    Route::get('/blogs/{id}', [BlogController::class, 'show']);
-    Route::get('/blogs', [BlogController::class, 'index']);
+
+    Route::prefix('/dashboard')->group(function(){
+        Route::post('/blogs/store', [BlogController::class, 'store']);
+        Route::put('/blogs/update/{id}', [BlogController::class, 'update']);
+        Route::get('/doctor-blogs', [BlogController::class, 'doctor_blogs']);
+        Route::get('/blogs/{id}', [BlogController::class, 'show']);
+        Route::get('/blogs', [BlogController::class, 'index']);
+    });
 });
 
 
