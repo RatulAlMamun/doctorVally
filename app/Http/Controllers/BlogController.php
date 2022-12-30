@@ -41,6 +41,7 @@ class BlogController extends Controller
         {
             if(auth()->id() == $blog->user_id)
             {
+                $data = [];
                 if($request->title)
                 {
                     $data['title'] = $request->input('title');
@@ -51,6 +52,7 @@ class BlogController extends Controller
                 }
                 if($request->hasFile('thumbnail'))
                 {
+                    //image path parsing
                     $oldImageUrl = $blog->thumbnail;
                     $oldImageWithSlash = parse_url($oldImageUrl)['path'];
                     $oldImage = substr($oldImageWithSlash, 1);
@@ -64,13 +66,26 @@ class BlogController extends Controller
                     $thumbnail->move($path, $newThumbnailName);
                     $data['thumbnail'] = $newThumbnailName;
                 }
-
-                $blog->update($data);
-                return response()->json([
-                    'error' => false,
-                    'message' => 'Blog updated successfully!!',
-                    'data' => $blog
-                ]);
+                if(isset($request->publish))
+                {
+                    $data['publish'] = $request->input('publish');
+                }
+                if($data)
+                {
+                    $blog->update($data);
+                    return response()->json([
+                        'error' => false,
+                        'message' => 'Blog updated successfully!!',
+                        'data' => $blog
+                    ]);
+                }
+                else
+                {
+                    return response()->json([
+                        'error' => true,
+                        'message' => 'There is no data to update!!'
+                    ], 400);
+                }
             }
             else
             {

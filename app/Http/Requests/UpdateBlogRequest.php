@@ -26,7 +26,9 @@ class UpdateBlogRequest extends FormRequest
         return [
             'title' => 'string',
             'thumbnail' => 'image|mimes:png,jpg,jpeg',
-            'description' => 'string'
+            'description' => 'string',
+            'publish' => 'boolean'
+
         ];
     }
 }
