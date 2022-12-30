@@ -16,7 +16,9 @@ class BlogController extends Controller
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'user_id' => auth()->id(),
-            'publish' => $request->input('publish')
+            'publish' => $request->input('publish'),
+            'view' => 0,
+            'share' => 0
         ];
         if($request->hasFile('thumbnail'))
         {

@@ -20,6 +20,8 @@ class CreateBlogsTable extends Migration
             $table->text('description');
             $table->foreignId('user_id');
             $table->boolean('publish')->default(false);
+            $table->bigInteger('view')->default(0);
+            $table->bigInteger('share')->default(0);
             $table->timestamps();
         });
     }

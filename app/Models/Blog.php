@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Blog extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'thumbnail', 'description', 'user_id', 'publish'];
+    protected $fillable = ['title', 'thumbnail', 'description', 'user_id', 'publish', 'view', 'share'];
 
     /**
      * The attributes that should be cast.
