@@ -29,4 +29,9 @@ class Blog extends Model
     {
         return asset('uploads/blogs/'.$value);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

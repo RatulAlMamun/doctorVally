@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
+    public function index()
+    {
+        $allBlogs = auth()->user()->blogs;
+        return response()->json([
+            'error' => false,
+            'message' => 'All blog show',
+            'data' => $allBlogs
+        ]);
+    }
+
     public function store(StoreBlogRequest $request)
     {
         $data = [
@@ -126,26 +136,6 @@ class BlogController extends Controller
                     'message' => 'Unauthorized Access!!'
                 ], 401);
             }
-        }
-        else
-        {
-            return response()->json([
-                'error' => true,
-                'message' => 'Blog not found'
-            ], 404);
-        }
-    }
-
-    public function index()
-    {
-        $allBlogs = Blog::get();
-        if($allBlogs)
-        {
-            return response()->json([
-                'error' => false,
-                'message' => 'All blog show',
-                'data' => $allBlogs
-            ]);
         }
         else
         {
