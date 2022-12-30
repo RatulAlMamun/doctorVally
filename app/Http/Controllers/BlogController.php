@@ -111,11 +111,21 @@ class BlogController extends Controller
         $blog = Blog::find($id);
         if($blog)
         {
-            return response()->json([
-                'error' => false,
-                'message' => 'Single blog show',
-                'data' => $blog
-            ]);
+            if(auth()->id() == $blog->user_id)
+            {
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Single blog show',
+                    'data' => $blog
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Unauthorized Access!!'
+                ], 401);
+            }
         }
         else
         {
@@ -124,13 +134,6 @@ class BlogController extends Controller
                 'message' => 'Blog not found'
             ], 404);
         }
-    }
-
-    public function doctor_blogs()
-    {
-        $user = auth()->user();
-        dd($user);
-
     }
 
     public function index()

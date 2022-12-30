@@ -28,9 +28,8 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/blogs/store', [BlogController::class, 'store']);
     Route::put('/blogs/update/{id}', [BlogController::class, 'update']);
     Route::get('/doctor-blogs', [BlogController::class, 'doctor_blogs']);
-
+    Route::get('/blogs/{id}', [BlogController::class, 'show']);
+    Route::get('/blogs', [BlogController::class, 'index']);
 });
-Route::get('/blogs/{id}', [BlogController::class, 'show']);
-Route::get('/blogs', [BlogController::class, 'index']);
 
 
