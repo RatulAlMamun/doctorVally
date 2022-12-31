@@ -15,4 +15,9 @@ class Doctor extends Model
      * @var array<int, string>
      */
     protected $fillable = ['name', 'bmdc_no', 'gender', 'address', 'bio', 'facebook', 'youtube', 'linkedin', 'twitter', 'user_id'];
+
+    public function specialities()
+    {
+        return $this->belongsToMany(Speciality::class);
+    }
 }

@@ -38,7 +38,8 @@ class UpdateDoctorProfileRequest extends FormRequest
             'facebook' => 'string|url',
             'youtube' => 'string|url',
             'linkedin' => 'string|url',
-            'twitter' => 'string|url'
+            'twitter' => 'string|url',
+            'specialities' => 'array|min:1'
         ];
     }
 }
