@@ -37,6 +37,7 @@ Route::middleware('auth:api')->group(function(){
 
         Route::prefix('/specialities')->group(function(){
             Route::post('/store', [SpecialityController::class, 'store']);
+            Route::get('/search', [SpecialityController::class, 'search']);
         });
     });
 
