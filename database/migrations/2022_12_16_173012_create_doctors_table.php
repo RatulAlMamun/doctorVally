@@ -17,6 +17,13 @@ class CreateDoctorsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('bmdc_no')->unique();
+            $table->string('gender')->nullable();
+            $table->string('address')->nullable();
+            $table->mediumText('bio')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('twitter')->nullable();
             $table->foreignId('user_id');
             $table->timestamps();
         });
