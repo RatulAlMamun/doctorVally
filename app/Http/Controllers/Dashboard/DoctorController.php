@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateDoctorImageRequest;
 use App\Http\Requests\UpdateDoctorProfileRequest;
-use App\Models\User;
 
 class DoctorController extends Controller
 {
@@ -34,6 +34,10 @@ class DoctorController extends Controller
             if($request->bio)
             {
                 $doctorData['bio'] = $request->input('bio');
+            }
+            if($request->treat_summary)
+            {
+                $doctorData['treat_summary'] = $request->input('treat_summary');
             }
             if($request->facebook)
             {
@@ -72,6 +76,34 @@ class DoctorController extends Controller
                 ]
             ]);
 
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Unauthorized Access!!'
+        ], 401);
+    }
+
+    public function imageUpadate(UpdateDoctorImageRequest $request)
+    {
+        $user = auth()->user();
+        $doctor = $user->userDetails;
+        if($user->hasRole('doctor'))
+        {
+            $oldImage = $doctor->image;
+            if($oldImage)
+            {
+                unlink('uploads/doctors/'.$oldImage);
+            }
+            $image = $request->file('image');
+            $newImageName = time().'.'.$image->getClientOriginalExtension();
+            $path = public_path('/uploads/doctors');
+            $image->move($path, $newImageName);
+            $doctor->update(['image' => $newImageName]);
+            return response()->json([
+                'error' => false,
+                'message' => 'Profile Image updated successfully!!',
+                'data' => $user->userDetails
+            ]);
         }
         return response()->json([
             'error' => true,

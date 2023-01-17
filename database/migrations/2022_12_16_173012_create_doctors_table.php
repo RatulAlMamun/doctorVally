@@ -20,6 +20,7 @@ class CreateDoctorsTable extends Migration
             $table->string('gender')->nullable();
             $table->string('address')->nullable();
             $table->mediumText('bio')->nullable();
+            $table->mediumText('treat_summary')->nullable();
             $table->string('facebook')->nullable();
             $table->string('youtube')->nullable();
             $table->string('linkedin')->nullable();
