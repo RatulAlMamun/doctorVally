@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard\BlogController;
 use App\Http\Controllers\Dashboard\DoctorController;
+use App\Http\Controllers\Dashboard\ExperienceController;
 use App\Http\Controllers\Dashboard\SpecialityController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ Route::post('/login',[AuthController::class,'login']);
 Route::middleware('auth:api')->group(function(){
     Route::get('/me', [AuthController::class,'me']);
     Route::put('/doctor/profile/update', [DoctorController::class, 'update']);
+    Route::put('/doctor/profile/imageUpadate', [DoctorController::class, 'imageUpadate']);
 
     Route::prefix('/dashboard')->group(function(){
         Route::post('/blogs/store', [BlogController::class, 'store']);
@@ -38,6 +40,13 @@ Route::middleware('auth:api')->group(function(){
         Route::prefix('/specialities')->group(function(){
             Route::post('/store', [SpecialityController::class, 'store']);
             Route::get('/search', [SpecialityController::class, 'search']);
+        });
+
+        Route::prefix('/experiences')->group(function(){
+            Route::get('/', [ExperienceController::class, 'index']);
+            Route::post('/store', [ExperienceController::class, 'store']);
+            Route::put('/update/{id}', [ExperienceController::class, 'update']);
+            Route::delete('/delete/{id}', [ExperienceController::class, 'delete']);
         });
     });
 
