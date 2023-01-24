@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      args:
+        user: www
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: doctorvally
+    container_name: doctorvally-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    
+  db:
+    image: mysql:5.7
+    container_name: doctorvally-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker/docker-volumes-data/db:/var/lib/mysql
+  
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 4567:80
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: ${DB_USERNAME}
+      PMA_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+
+  nginx:
+    image: nginx:alpine
+    container_name: doctorvally-nginx
+    restart: unless-stopped
+    ports:
+      - 3456:80
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d/
