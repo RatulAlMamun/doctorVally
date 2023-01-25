@@ -13,7 +13,7 @@ class UpdateQualificationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdateQualificationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'degree_id' => 'required|numeric',
+            'institution_id' => 'required|numeric',
+            'major' => 'string|nullable',
+            'from_date' => 'required|date',
+            'to_date' => 'required|date'
         ];
     }
 }

@@ -53,6 +53,7 @@ Route::middleware('auth:api')->group(function(){
         Route::prefix('/qualifications')->group(function(){
             Route::get('/', [QualificationController::class, 'index']);
             Route::post('/store', [QualificationController::class, 'store']);
+            Route::put('/update/{id}', [QualificationController::class, 'update']);
         });
     });
 
