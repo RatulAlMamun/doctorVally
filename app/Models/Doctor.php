@@ -25,4 +25,9 @@ class Doctor extends Model
     {
         return $this->hasMany(Experience::class);
     }
+
+    public function qualifications ()
+    {
+        return $this->hasMany(Qualification::class);
+    }
 }

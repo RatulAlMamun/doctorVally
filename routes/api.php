@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\BlogController;
 use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\ExperienceController;
 use App\Http\Controllers\Dashboard\SpecialityController;
+use App\Http\Controllers\QualificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +48,10 @@ Route::middleware('auth:api')->group(function(){
             Route::post('/store', [ExperienceController::class, 'store']);
             Route::put('/update/{id}', [ExperienceController::class, 'update']);
             Route::delete('/delete/{id}', [ExperienceController::class, 'delete']);
+        });
+
+        Route::prefix('/qualifications')->group(function(){
+            Route::post('/store', [QualificationController::class, 'store']);
         });
     });
 
