@@ -14,7 +14,7 @@ services:
     working_dir: /var/www
     volumes:
       - ./:/var/www
-    
+
   db:
     image: mysql:5.7
     container_name: doctorvally-db
@@ -26,7 +26,7 @@ services:
       SERVICE_NAME: mysql
     volumes:
       - ./docker/docker-volumes-data/db:/var/lib/mysql
-  
+
   phpmyadmin:
     image: phpmyadmin
     restart: always
@@ -45,7 +45,7 @@ services:
     container_name: doctorvally-nginx
     restart: unless-stopped
     ports:
-      - 3456:80
+      - 8000:80
     volumes:
       - ./:/var/www
       - ./docker/nginx:/etc/nginx/conf.d/

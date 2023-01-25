@@ -19,3 +19,5 @@ shell:
 clean:
 	docker system prune -f && docker volume prune -f
 
+install-passport:
+	docker-compose exec app bash && php artisan passport:install
