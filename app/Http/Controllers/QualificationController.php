@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 
 class QualificationController extends Controller
 {
+    public function index()
+    {
+        $doctor = auth()->user()->userDetails;
+        return response()->json([
+            'error' => false,
+            'message' => 'All Qualifications show',
+            'data' => $doctor->qualifications
+        ]);
+    }
+
     public function store(StoreQualificationRequest $request)
     {
         $qualification = Qualification::create([
